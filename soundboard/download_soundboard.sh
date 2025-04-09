@@ -4,7 +4,7 @@ VENV="venv"
 
 # check if there is a env
 if [ ! -d "$VENV" ]; then
-	python3 -m venv venv
+    python3 -m venv venv
 fi;
 
 # source venv
