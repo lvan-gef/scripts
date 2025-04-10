@@ -17,7 +17,7 @@ if [[ $# -eq 1 ]]; then
     case $1 in
         'u')
             NEW_STATE=$(xmodmap -pke | grep " 66 = " | awk '{ print $4 } ' | tr '[:upper:]' '[:lower:]' | tr -s '_' ' ')
-            curl -H 'Content-Type: application/json' -d '{"text": "$NEW_STATE"}' -X POST 'http://192.168.2.59:8888/api/location/1/0/3/style'
+            curl -H 'Content-Type: application/json' -d "{\"text\": \"$NEW_STATE\"}" -X POST 'http://192.168.2.59:8888/api/location/1/0/3/style'
             ;;
         *)
             echo 'Expected "u" for update state'
