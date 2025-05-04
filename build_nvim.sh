@@ -1,4 +1,4 @@
-#! /usr/bin/env sh
+#! /usr/bin/env bash
 
 DIRECTORY="$HOME/build_dir/neovim"
 NVIMCONFIG="$HOME/.config/nvim"
@@ -28,6 +28,7 @@ if [ ! -d "$DIRECTORY" ]; then
 fi;
 
 cd "$DIRECTORY";
+git pull
 
 # checkout to version
 git checkout $version
@@ -48,7 +49,9 @@ if [ ! -d "$NVIMCONFIG" ]; then
     exit 2;
 fi;
 
+cd $NVIMCONFIG
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    cd $NVIMCONFIG
-    git checkout mac
+    git switch mac
+else
+    git switch current
 fi;
