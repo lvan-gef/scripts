@@ -18,7 +18,7 @@ fi;
 echo "Used version: $version"
 
 if [[ "$OSTYPE" == "linux"* ]]; then
-    sudo apt install cmake gettet lua5.1 liblua5.1-0-dev
+    sudo apt install cmake gettet lua5.1 liblua5.1-0-dev ninja-build curl build-essential
 fi;
 
 if [ ! -d "$DIRECTORY" ]; then
