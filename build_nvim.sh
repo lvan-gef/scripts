@@ -17,6 +17,10 @@ fi;
 
 echo "Used version: $version"
 
+if [[ "$OSTYPE" == "linux"* ]]; then
+    sudo apt install cmake gettet lua5.1 liblua5.1-0-dev
+fi;
+
 if [ ! -d "$DIRECTORY" ]; then
     echo "git clone neovim";
     git clone https://github.com/neovim/neovim.git $DIRECTORY
@@ -34,6 +38,7 @@ git pull
 git checkout $version
 
 # make neovim
+make clean
 make -j$CPUCOUNT CMAKE_BUILD_TYPE=RelWithDebInfo;
 
 # install neovim
