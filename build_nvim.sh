@@ -57,7 +57,9 @@ fi;
 cd $NVIMCONFIG
 if [[ "$OSTYPE" == "darwin"* ]]; then
     git switch mac
+    git pull
 else
     git switch current
+    git pull
 fi;
 
