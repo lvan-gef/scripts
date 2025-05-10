@@ -18,7 +18,7 @@ fi;
 echo "Used version: $version"
 
 if [[ "$OSTYPE" == "linux"* ]]; then
-    sudo apt install cmake gettet lua5.1 liblua5.1-0-dev ninja-build curl build-essential
+    sudo apt install cmake gettext lua5.1 liblua5.1-0-dev ninja-build curl build-essential
 fi;
 
 if [ ! -d "$DIRECTORY" ]; then
@@ -32,7 +32,7 @@ if [ ! -d "$DIRECTORY" ]; then
 fi;
 
 cd "$DIRECTORY";
-git pull
+git fetch --all
 
 # checkout to version
 git checkout $version
