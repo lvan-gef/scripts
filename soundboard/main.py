@@ -23,35 +23,38 @@ def main():
 
     soup = BeautifulSoup(req.text)
 
-    for _type in soup.find_all('div', class_='group'):
-        # create dir per group
-        dir_name = _type.get('id')
-        try:
-            os.mkdir(dir_name)
-        except FileExistsError:
-            pass
+    try:
+        for _type in soup.find_all('div', class_='group'):
+            # create dir per group
+            dir_name = _type.get('id')
+            try:
+                os.mkdir(dir_name)
+            except FileExistsError:
+                pass
 
-        # found all audio tags
-        for audio in _type.find_all(audio_tag):
-            title = audio.get('title').replace(' ', '_')
-            sub_url = audio.get('src')
+            # found all audio tags
+            for audio in _type.find_all(audio_tag):
+                title = audio.get('title').replace(' ', '_')
+                sub_url = audio.get('src')
 
-            new_url = f'{url}/{sub_url}'
-            new_path = f'{dir_name}/{title}.mp3'
-            if new_path in data:
-                continue
+                new_url = f'{url}/{sub_url}'
+                new_path = f'{dir_name}/{title}.mp3'
+                if new_path in data:
+                    continue
 
-            print(f'Download {title}: {new_url}')
-            download = requests.get(f'{new_url}')
-            if download.status_code != 200:
-                print(f'failed to download url: {new_url}')
-                continue
-            with open(new_path, 'bw') as f:
-                f.write(download.content)
-            data.append(new_path)
-
-    with open(downloaded, 'w') as f:
-        json.dump(data, f, indent=4)
+                print(f'Download {title}: {new_url}')
+                download = requests.get(f'{new_url}')
+                if download.status_code != 200:
+                    print(f'failed to download url: {new_url}')
+                    continue
+                with open(new_path, 'bw') as f:
+                    f.write(download.content)
+                data.append(new_path)
+    except KeyboardInterrupt:
+        print('User did stop the script')
+    finally:
+        with open(downloaded, 'w') as f:
+            json.dump(data, f, indent=4)
 
 
 if __name__ == '__main__':
