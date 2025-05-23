@@ -5,6 +5,7 @@ import sys
 import requests
 from bs4 import BeautifulSoup
 
+
 def main():
     url = 'https://www.soundboard.ianlangeberg.nl'
     audio_tag = 'audio'
@@ -22,7 +23,7 @@ def main():
         print('Website return code is not 200', file=sys.stderr)
         exit(1)
 
-    soup = BeautifulSoup(req.text)
+    soup = BeautifulSoup(req.text, 'lxml')
 
     try:
         for _type in soup.find_all('div', class_='group'):
@@ -50,8 +51,10 @@ def main():
                 if download.status_code != 200:
                     print(f'failed to download url: {new_url}', file=sys.stderr)
                     continue
+
                 with open(new_path, 'bw') as f:
                     f.write(download.content)
+
                 data.append(new_path)
     except KeyboardInterrupt:
         print('User did stop the script')
