@@ -19,6 +19,12 @@ echo "Used version: $version"
 
 if [[ "$OSTYPE" == "linux"* ]]; then
     sudo apt install cmake gettext lua5.1 liblua5.1-0-dev ninja-build curl build-essential
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    if ! brew --version; then
+        xcode-select --install
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        brew install ninja cmake gettext curl
+    fi;
 fi;
 
 if [ ! -d "$DIRECTORY" ]; then
@@ -62,4 +68,3 @@ else
     git switch current
     git pull
 fi;
-
