@@ -5,7 +5,7 @@ DIR="$HOME/build_dir"
 # add checking if commands where succesfull
 cd "$DIR/fd" || exit
 git pull --rebase
-cargo build --relase
+cargo build --release
 cargo test
 cargo install --path .
 
