@@ -150,6 +150,7 @@ if user_input.isdigit():
     for k, v in errno_mapping.items():
         if v[0] == int(user_input):
             print(v[1])
+            break
 elif user_input == '-l':
     longest = max([len(x) for x in list(errno_mapping.keys())])
     for k, v in errno_mapping.items():
