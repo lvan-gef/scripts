@@ -25,7 +25,7 @@ elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
         xmodmap -e "keysym Caps_Lock = Escape"
         NEW_STATE="Esc"
     fi
-fi;
+fi
 
 # too update companion state
 if [[ $# -eq 1 ]]; then
