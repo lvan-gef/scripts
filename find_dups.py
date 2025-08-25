@@ -32,7 +32,7 @@ if __name__ == '__main__':
                     description='find dubs of fils')
 
     parser.add_argument('path', type=Path, help='path that you want to check')
-    parser.add_argument('-s', type=int, default=1025, help='size of the chunk for reading')
+    parser.add_argument('-s', type=int, default=1024, help='size of the chunk for reading')
     args = parser.parse_args()
 
     main(args.path.resolve())
