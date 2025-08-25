@@ -2,12 +2,13 @@
 
 import argparse
 import json
+from collections import defaultdict
 from hashlib import md5
 from pathlib import Path
 
 
 def main(path: Path) -> None:
-    dub = {}
+    dub = defaultdict(list)
 
     for root, _, files in path.walk():
         for file in files:
@@ -20,7 +21,7 @@ def main(path: Path) -> None:
                         break
                     hash_result.update(data)
 
-            dub.setdefault(hash_result.hexdigest(), []).append(str(fullname))
+            dub[hash_result.hexdigest()].append(str(fullname))
 
     dubs = {k: v for k, v in dub.items() if len(v) > 1}
     if dubs:
@@ -37,11 +38,12 @@ if __name__ == '__main__':
             'path',
             type=Path,
             help='path that you want to check')
+
     parser.add_argument(
             '-s',
             type=int,
             default=1024,
             help='size of the chunk for reading')
-    args = parser.parse_args()
 
+    args = parser.parse_args()
     main(args.path.resolve())
