@@ -5,6 +5,7 @@ import json
 from hashlib import md5
 from pathlib import Path
 
+
 def main(path: Path) -> None:
     dub = {}
 
@@ -19,20 +20,28 @@ def main(path: Path) -> None:
                         break
                     hash_result.update(data)
 
-            dub.setdefault(hash_result.hexdigest(), []).append(fullname)
+            dub.setdefault(hash_result.hexdigest(), []).append(str(fullname))
 
     dubs = {k: v for k, v in dub.items() if len(v) > 1}
     if dubs:
         with open(f'{path.stem}_dups.json', 'w') as f:
             json.dump(dubs, f, indent=4)
 
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
                     prog='fdf',
                     description='find dubs of fils')
 
-    parser.add_argument('path', type=Path, help='path that you want to check')
-    parser.add_argument('-s', type=int, default=1024, help='size of the chunk for reading')
+    parser.add_argument(
+            'path',
+            type=Path,
+            help='path that you want to check')
+    parser.add_argument(
+            '-s',
+            type=int,
+            default=1024,
+            help='size of the chunk for reading')
     args = parser.parse_args()
 
     main(args.path.resolve())
