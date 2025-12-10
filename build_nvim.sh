@@ -40,17 +40,13 @@ fi;
 cd "$DIRECTORY";
 git fetch --all
 
-# checkout to version
 git checkout $version
 
-# make neovim
 make clean
 make -j$CPUCOUNT CMAKE_BUILD_TYPE=RelWithDebInfo;
 
-# install neovim
 sudo make -j$CPUCOUNT install
 
-# get neovim config from my github
 if [ ! -d "$NVIMCONFIG" ]; then
     git clone git@github.com:lvan-gef/nvim.git $NVIMCONFIG
 fi;
