@@ -18,7 +18,11 @@ fi;
 echo "Used version: $version"
 
 if [[ "$OSTYPE" == "linux"* ]]; then
-    sudo apt install cmake gettext lua5.1 liblua5.1-0-dev ninja-build curl build-essential
+    if [[ "$(uname -a)" == *"Debian" ]]; then
+        sudo apt install cmake gettext lua5.1 liblua5.1-0-dev ninja-build curl build-essential
+    else
+        yay -Syu base-devel cmake ninja curl git
+    fi
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     if ! brew --version; then
         xcode-select --install
