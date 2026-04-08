@@ -30,11 +30,12 @@ def show_current() -> None:
 
     for info in info_lines:
         if '*' in info:
-            data = info.split(' ')
-            data = [x for x in data if x.strip()]
-            for setting in data:
-                if '*' in setting:
-                    print(f'current settings: {data[0]} {setting.replace('*', '')}')
+            data = (x.strip() for x in info.split(' ') if x.strip())
+            for index, setting in enumerate(data):
+                 if index == 0:
+                    print(f'current settings: {setting}', end=' ')
+                 elif '*' in setting:
+                    print(f'{setting.replace('*', '')}')
                     break
             break
     else:
@@ -42,11 +43,11 @@ def show_current() -> None:
         exit(2)
 
 
-def set_monitor(resolution: str, refresh: str):
+def set_monitor(resolution: str, refresh: str) -> None:
     info_lines = show_info(print_it=False).split('\n')
 
-    if (info_lines[0].startswith(' connected')):
-        info_lines = [info for info in info_lines[1:]]
+    if info_lines[0].startswith(' connected'):
+        info_lines = (info for info in info_lines[1:])
 
     display_info = ''
     for info in info_lines:
