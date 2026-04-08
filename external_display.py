@@ -17,6 +17,7 @@ def show_info(print_it: bool) -> str:
 
     hdmi = result.stdout.split('HDMI-2')
     assert len(hdmi) > 1
+    assert hdmi[1].strip() != ''
 
     if print_it:
         print('HDMI-2', end='')
