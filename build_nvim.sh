@@ -21,8 +21,17 @@ if [[ "$OSTYPE" == "linux"* ]]; then
     name="$(uname -a)"
     if [[ "$name" == *"Debian"* ]]; then
         sudo apt install cmake gettext lua5.1 liblua5.1-0-dev ninja-build curl build-essential
+
+        which clang-tidy
+        exit_code=$?
+        if [ $exit_code -ne 0 ]; then
+            wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo tee /etc/apt/trusted.gpg.d/apt.llvm.org.asc
+            sudo add-apt-repository 'deb http://apt.llvm.org/bookworm/ llvm-toolchain-bookworm main'
+            sudo apt update
+            sudo apt install clang-tidy
+        fi
     else
-        yay -Syu base-devel cmake ninja curl git
+        yay -Syu base-devel cmake ninja curl git clang-tidy
     fi
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     if ! brew --version; then
@@ -48,6 +57,7 @@ git fetch --all
 git checkout $version
 
 make clean
+make distclean
 make -j$CPUCOUNT CMAKE_BUILD_TYPE=RelWithDebInfo;
 
 sudo make -j$CPUCOUNT install
