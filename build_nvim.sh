@@ -56,8 +56,8 @@ git fetch --all
 
 git checkout $version
 
-make clean
-make distclean
+sudo make clean
+sudo make distclean
 make -j$CPUCOUNT CMAKE_BUILD_TYPE=RelWithDebInfo;
 
 sudo make -j$CPUCOUNT install
